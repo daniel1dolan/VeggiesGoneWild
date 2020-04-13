@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import themes from "./util/theme";
 
 //Redux
 import { createStore } from "redux";
@@ -16,8 +18,11 @@ import Container from "./components/Container";
 //Root Reducer
 import rootReducer from "./reducers/rootReducer";
 
+//MUI
+const theme = createMuiTheme(themes);
+
 //Local storage
-let saveToLocalStorage = state => {
+let saveToLocalStorage = (state) => {
   try {
     const serializeState = JSON.stringify(state);
     localStorage.setItem("state", serializeState);
@@ -57,14 +62,16 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <BaseLayout>
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route exact path="/container" component={Container} />
-        </Switch>
-      </BaseLayout>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <BaseLayout>
+          <Switch>
+            <Route exact path="/" component={App} />
+            <Route exact path="/container" component={Container} />
+          </Switch>
+        </BaseLayout>
+      </BrowserRouter>
+    </ThemeProvider>
   </Provider>,
   document.getElementById("root")
 );

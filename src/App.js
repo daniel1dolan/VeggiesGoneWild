@@ -1,11 +1,14 @@
 import React from "react";
+import QuickLinks from "./components/home/QuickLinks";
 
-function App() {
+function App(props) {
   return (
     <>
-      Home Page
+      Short About The Site
       <br />
-      Install Styling Framework to get started.
+      <QuickLinks />
+      <br />
+      Vegan Q and A
     </>
   );
 }
