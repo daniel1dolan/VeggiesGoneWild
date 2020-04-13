@@ -14,6 +14,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import BaseLayout from "./components/layout/BaseLayout";
 import App from "./App";
 import Container from "./components/Container";
+import RecipeExplorer from "./components/RecipeExplorer";
 
 //Root Reducer
 import rootReducer from "./reducers/rootReducer";
@@ -68,6 +69,10 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/container" component={Container} />
+            <Route exact path="/recipeexplorer" component={RecipeExplorer} />
+            <Route exact path="/recipeexplorer:id" component={Container} />
+            <Route exact path="/faves" component={Container} />
+            <Route exact path="/grocerylist" component={Container} />
           </Switch>
         </BaseLayout>
       </BrowserRouter>
