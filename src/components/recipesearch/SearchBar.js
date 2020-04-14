@@ -27,7 +27,12 @@ export default function BasicTextFields(props) {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={""}>
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={props.submitHandler}
+    >
       <TextField
         id="standard-basic"
         label="Search All Recipes"
@@ -41,9 +46,21 @@ export default function BasicTextFields(props) {
           value={props.parentState.cuisineField}
           onChange={props.cuisineChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={"American"}>American</MenuItem>
+          <MenuItem value={"Cajun"}>Cajun</MenuItem>
+          <MenuItem value={"Caribbean"}>Caribbean</MenuItem>
+          <MenuItem value={"Chinese"}>Chinese</MenuItem>
+          <MenuItem value={"French"}>French</MenuItem>
+          <MenuItem value={"Greek"}>Greek</MenuItem>
+          <MenuItem value={"Indian"}>Indian</MenuItem>
+          <MenuItem value={"Italian"}>Italian</MenuItem>
+          <MenuItem value={"Korean"}>Korean</MenuItem>
+          <MenuItem value={"Mediterranean"}>Mediterranean</MenuItem>
+          <MenuItem value={"Mexican"}>Mexican</MenuItem>
+          <MenuItem value={"Korean"}>Korean</MenuItem>
+          <MenuItem value={"Spanish"}>Spanish</MenuItem>
+          <MenuItem value={"Thai"}>Thai</MenuItem>
+          <MenuItem value={"Vietnamese"}>Vietnamese</MenuItem>
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -54,9 +71,16 @@ export default function BasicTextFields(props) {
           value={props.parentState.typeField}
           onChange={props.typeChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={"main course"}>Main Course</MenuItem>
+          <MenuItem value={"side dish"}>Side Dish</MenuItem>
+          <MenuItem value={"dessert"}>Dessert</MenuItem>
+          <MenuItem value={"appetizer"}>Appetizer</MenuItem>
+          <MenuItem value={"salad"}>Salad</MenuItem>
+          <MenuItem value={"bread"}>Bread</MenuItem>
+          <MenuItem value={"breakfast"}>Breakfast</MenuItem>
+          <MenuItem value={"soup"}>Soup</MenuItem>
+          <MenuItem value={"beverage"}>Beverage</MenuItem>
+          <MenuItem value={"snack"}>Snack</MenuItem>
         </Select>
       </FormControl>
       <Button

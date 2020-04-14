@@ -14,9 +14,33 @@ class RecipeExplorer extends Component {
       searchField: "",
       cuisineField: "",
       typeField: "",
-      recipesWanted: [1],
+      recipesWanted: [],
     };
   }
+  componentWillMount = (params) => {
+    let url =
+      "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let filteredData = data.results.map((recipe) => {
+          return {
+            title: recipe.title,
+            readyInMinutes: recipe.readyInMinutes,
+            image: recipe.image,
+            summary: recipe.summary,
+            nutrition: recipe.nutrition,
+            instructions: recipe.analyzedInstructions,
+            ingredients: recipe.missedIngredients,
+          };
+        });
+        this.setState({
+          recipesWanted: filteredData,
+        });
+      });
+  };
   handleSearchChange = (e) => {
     this.setState({
       searchField: e.target.value,
@@ -47,6 +71,7 @@ class RecipeExplorer extends Component {
   };
   //onRecipeSearch checks which input fields contain data then makes the corresponding API call
   onRecipeSearch = (dataObj) => {
+    console.log(dataObj);
     let url =
       "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true";
     if (dataObj.searchField) {
@@ -56,8 +81,30 @@ class RecipeExplorer extends Component {
       url += `&cuisine=${dataObj.cuisineField}`;
     }
     if (dataObj.typeField) {
-      url += `&cuisine=${dataObj.typeField}`;
+      url += `&type=${dataObj.typeField}`;
     }
+    console.log(url);
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let filteredData = data.results.map((recipe) => {
+          return {
+            title: recipe.title,
+            readyInMinutes: recipe.readyInMinutes,
+            image: recipe.image,
+            summary: recipe.summary,
+            nutrition: recipe.nutrition,
+            instructions: recipe.analyzedInstructions,
+            ingredients: recipe.missedIngredients,
+          };
+        });
+        console.log(filteredData);
+        this.setState({
+          recipesWanted: filteredData,
+        });
+      });
   };
   render() {
     return (
@@ -67,8 +114,9 @@ class RecipeExplorer extends Component {
           cuisineChange={this.handleCuisineChange}
           typeChange={this.handleTypeChange}
           parentState={this.state}
+          submitHandler={this.onSubmitHandler}
         />
-        {/* <RecipeCards /> */}
+        <RecipeCards parentState={this.state} />
       </>
     );
   }

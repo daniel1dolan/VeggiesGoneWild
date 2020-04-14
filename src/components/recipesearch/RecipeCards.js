@@ -12,8 +12,9 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+
+import parse from "html-react-parser";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,11 +37,6 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
   container: {
     flexGrow: 1,
   },
@@ -49,50 +45,54 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
 
-  //   return (
-  //     <div className={classes.container}>
-  //       <Grid container spacing={3}>
-  //         {props.recipesWanted.map((recipe, index) => {
-  //           <Grid item xs={3} key={index}>
-  //             <Card className={classes.root}>
-  //               <CardHeader
-  //                 avatar={
-  //                   <Avatar aria-label="recipe" className={classes.avatar}>
-  //                     R
-  //                   </Avatar>
-  //                 }
-  //                 action={
-  //                   <IconButton aria-label="settings">
-  //                     <MoreVertIcon />
-  //                   </IconButton>
-  //                 }
-  //                 title="Shrimp and Chorizo Paella"
-  //                 subheader="September 14, 2016"
-  //               />
-  //               <CardMedia
-  //                 className={classes.media}
-  //                 image="/static/images/cards/paella.jpg"
-  //                 title="Paella dish"
-  //               />
-  //               <CardContent>
-  //                 <Typography variant="body2" color="textSecondary" component="p">
-  //                   This impressive paella is a perfect party dish and a fun meal
-  //                   to cook together with your guests. Add 1 cup of frozen peas
-  //                   along with the mussels, if you like.
-  //                 </Typography>
-  //               </CardContent>
-  //               <CardActions disableSpacing>
-  //                 <IconButton aria-label="add to favorites">
-  //                   <FavoriteIcon />
-  //                 </IconButton>
-  //                 <IconButton aria-label="share">
-  //                   <ShareIcon />
-  //                 </IconButton>
-  //               </CardActions>
-  //             </Card>
-  //           </Grid>;
-  //         })}
-  //       </Grid>
-  //     </div>
-  //   );
+  return (
+    <div className={classes.container}>
+      <Grid container spacing={3}>
+        {props.parentState.recipesWanted.map((recipe, index) => {
+          return (
+            <Grid item xs={3} key={index}>
+              <Card className={classes.root}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={recipe.title}
+                  subheader={("Time: ", recipe.readyInMinutes)}
+                />
+                <CardMedia
+                  className={classes.media}
+                  image={recipe.image}
+                  title={recipe.title}
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {parse(recipe.summary)}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon />
+                  </IconButton>
+                </CardActions>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </div>
+  );
 }
