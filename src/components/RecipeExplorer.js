@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { TESTCASE1, TESTCASE2, TESTCASE3 } from "../actions/actionTypes";
-import { testCase1 } from "../actions/actionTemplate";
+import {
+  ADDRECIPETOFAVORITES,
+  TESTCASE2,
+  REMOVERECIPEFROMFAVORITES,
+} from "../actions/actionTypes";
+import { addRecipeToFavorites } from "../actions/actionTemplate";
 import { testCase2 } from "../actions/actionTemplate";
-import { testCase3 } from "../actions/actionTemplate";
+import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import SearchBar from "./recipesearch/SearchBar";
 import RecipeCards from "./recipesearch/RecipeCards";
+import dummyData from "../dummyData/dummyData.json";
 
 class RecipeExplorer extends Component {
   constructor(props) {
@@ -17,30 +22,50 @@ class RecipeExplorer extends Component {
       recipesWanted: [],
     };
   }
+
+  //Inital recipe load
   componentWillMount = (params) => {
-    let url =
-      "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let filteredData = data.results.map((recipe) => {
-          return {
-            title: recipe.title,
-            readyInMinutes: recipe.readyInMinutes,
-            image: recipe.image,
-            summary: recipe.summary,
-            nutrition: recipe.nutrition,
-            instructions: recipe.analyzedInstructions,
-            ingredients: recipe.missedIngredients,
-          };
-        });
-        this.setState({
-          recipesWanted: filteredData,
-        });
-      });
+    // let url =
+    //   "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
+    // fetch(url)
+    //   .then((response) => {
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     let filteredData = data.results.map((recipe) => {
+    //       return {
+    //         title: recipe.title,
+    //         readyInMinutes: recipe.readyInMinutes,
+    //         image: recipe.image,
+    //         summary: recipe.summary,
+    //         nutrition: recipe.nutrition,
+    //         instructions: recipe.analyzedInstructions,
+    //         ingredients: recipe.missedIngredients,
+    //       };
+    //     });
+    //     this.setState({
+    //       recipesWanted: filteredData,
+    //     });
+    //   });
+    //When spoonacular request run out: use dummy data.
+    let filteredData = dummyData.results.map((recipe) => {
+      return {
+        title: recipe.title,
+        readyInMinutes: recipe.readyInMinutes,
+        image: recipe.image,
+        summary: recipe.summary,
+        nutrition: recipe.nutrition,
+        instructions: recipe.analyzedInstructions,
+        ingredients: recipe.missedIngredients,
+        id: recipe.id,
+      };
+    });
+    this.setState({
+      recipesWanted: filteredData,
+    });
   };
+
+  //Handling of input field data storage
   handleSearchChange = (e) => {
     this.setState({
       searchField: e.target.value,
@@ -56,6 +81,7 @@ class RecipeExplorer extends Component {
       typeField: e.target.value,
     });
   };
+  //Search submit handler
   onSubmitHandler = (e) => {
     e.preventDefault();
     this.onRecipeSearch({
@@ -98,6 +124,7 @@ class RecipeExplorer extends Component {
             nutrition: recipe.nutrition,
             instructions: recipe.analyzedInstructions,
             ingredients: recipe.missedIngredients,
+            id: recipe.id,
           };
         });
         console.log(filteredData);
@@ -106,6 +133,15 @@ class RecipeExplorer extends Component {
         });
       });
   };
+
+  //Adding recipe to favorite button handling
+  addFavoriteRecipeHandler = (index) => {
+    console.log(index);
+    this.props.favoriteRecipesIDs.includes(this.state.recipesWanted[index].id)
+      ? this.props.removeRecipeFromFavorites(this.state.recipesWanted[index].id)
+      : this.props.addRecipeToFavorites(this.state.recipesWanted[index]);
+  };
+
   render() {
     return (
       <>
@@ -116,7 +152,11 @@ class RecipeExplorer extends Component {
           parentState={this.state}
           submitHandler={this.onSubmitHandler}
         />
-        <RecipeCards parentState={this.state} />
+        <RecipeCards
+          parentState={this.state}
+          addFave={this.addFavoriteRecipeHandler}
+          favoriteRecipesIDs={this.props.favoriteRecipesIDs}
+        />
       </>
     );
   }
@@ -124,16 +164,17 @@ class RecipeExplorer extends Component {
 
 let mapStateToProps = (state) => {
   return {
-    tempInt: state.template.state1,
-    tempArr: state.template.state2,
+    favoriteRecipes: state.reduxData.favoriteRecipes,
+    tempArr: state.reduxData.state2,
+    favoriteRecipesIDs: state.reduxData.favoriteRecipesIDs,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    testcase1: () => dispatch(testCase1()),
-    testcase2: (dataObj) => dispatch(testCase2(dataObj)),
-    testcase3: (id) => dispatch(testCase3(id)),
+    addRecipeToFavorites: (dataObj) => dispatch(addRecipeToFavorites(dataObj)),
+    testCase2: (dataObj) => dispatch(testCase2(dataObj)),
+    removeRecipeFromFavorites: (id) => dispatch(removeRecipeFromFavorites(id)),
   };
 };
 

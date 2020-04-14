@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { TESTCASE1, TESTCASE2, TESTCASE3 } from "../actions/actionTypes";
-import { testCase1 } from "../actions/actionTemplate";
+import {
+  ADDRECIPETOFAVORITES,
+  TESTCASE2,
+  REMOVERECIPEFROMFAVORITES,
+} from "../actions/actionTypes";
+import { addRecipeToFavorites } from "../actions/actionTemplate";
 import { testCase2 } from "../actions/actionTemplate";
-import { testCase3 } from "../actions/actionTemplate";
+import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 
 class Container extends Component {
   render() {
@@ -16,10 +20,12 @@ class Container extends Component {
           return <li>{item}</li>;
         })}
         <br />
-        <button onClick={() => this.props.testcase1()}>Update Count</button>
+        <button onClick={() => this.props.addRecipeToFavorites()}>
+          Update Count
+        </button>
         <br />
         <button
-          onClick={data => {
+          onClick={(data) => {
             this.props.testcase2(data);
           }}
         >
@@ -27,7 +33,7 @@ class Container extends Component {
         </button>
         <br />
         <button
-          onClick={id => {
+          onClick={(id) => {
             this.props.testcase3(id);
           }}
         >
@@ -38,18 +44,18 @@ class Container extends Component {
   }
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state) => {
   return {
     tempInt: state.template.state1,
-    tempArr: state.template.state2
+    tempArr: state.template.state2,
   };
 };
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = (dispatch) => {
   return {
-    testcase1: () => dispatch(testCase1()),
-    testcase2: dataObj => dispatch(testCase2(dataObj)),
-    testcase3: id => dispatch(testCase3(id))
+    addRecipeToFavorites: () => dispatch(addRecipeToFavorites()),
+    testcase2: (dataObj) => dispatch(testCase2(dataObj)),
+    removeRecipeFromFavorites: (id) => dispatch(removeRecipeFromFavorites(id)),
   };
 };
 

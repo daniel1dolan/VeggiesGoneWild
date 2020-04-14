@@ -54,7 +54,7 @@ export default function RecipeReviewCard(props) {
   return (
     <div className={classes.container}>
       <Grid container spacing={3}>
-        {props.parentState.recipesWanted.map((recipe, index) => {
+        {props.favoriteRecipes.map((recipe, index) => {
           return (
             <Grid item xs={3} key={index}>
               <Card className={classes.root}>
@@ -92,7 +92,7 @@ export default function RecipeReviewCard(props) {
                     id={recipe.title}
                     aria-label="add to favorites"
                     onClick={() => {
-                      props.addFave(index);
+                      props.removeRecipeFromFavorites(recipe.id);
                     }}
                   >
                     <FavoriteIcon

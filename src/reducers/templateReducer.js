@@ -1,9 +1,14 @@
-import { TESTCASE1, TESTCASE2, TESTCASE3 } from "../actions/actionTypes";
+import {
+  ADDRECIPETOFAVORITES,
+  TESTCASE2,
+  REMOVERECIPEFROMFAVORITES,
+} from "../actions/actionTypes";
 
 let templateReducer = (state, action) => {
   let initState = {
     state1: 0,
-    state2: []
+    favoriteRecipes: [],
+    favoriteRecipesIDs: [],
   };
   //Initialize state
   if (state === undefined) {
@@ -12,27 +17,33 @@ let templateReducer = (state, action) => {
 
   //Action type switch.
   switch (action.type) {
-    case TESTCASE1:
+    case ADDRECIPETOFAVORITES:
       //increasing value
+      console.log(action.data);
       return {
         ...state,
-        state1: state.state1 + 1
+        favoriteRecipes: state.favoriteRecipes.concat(action.data),
+        favoriteRecipesIDs: state.favoriteRecipesIDs.concat(action.data.id),
       };
 
     case TESTCASE2:
       //adding to array
       return {
         ...state,
-        state2: state.state2.concat(action.data)
+        state2: state.state2.concat(action.data),
       };
-    case TESTCASE3:
+    case REMOVERECIPEFROMFAVORITES:
       //deleting from array
-      let filteredArray = state.state2.filter(item => {
+      let filteredArray = state.favoriteRecipes.filter((item) => {
         return item.id != action.id;
+      });
+      let updateIDs = state.favoriteRecipesIDs.filter((id) => {
+        return id != action.id;
       });
       return {
         ...state,
-        state2: filteredArray
+        favoriteRecipes: filteredArray,
+        favoriteRecipesIDs: updateIDs,
       };
 
     default:

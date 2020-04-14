@@ -1,20 +1,25 @@
-import { TESTCASE1, TESTCASE2, TESTCASE3 } from "./actionTypes";
+import {
+  ADDRECIPETOFAVORITES,
+  TESTCASE2,
+  REMOVERECIPEFROMFAVORITES,
+} from "./actionTypes";
 
-export const testCase1 = () => {
+export const addRecipeToFavorites = (dataObj) => {
   return {
-    type: TESTCASE1
+    type: ADDRECIPETOFAVORITES,
+    data: dataObj,
   };
 };
 
-export const testCase2 = dataObj => {
+export const testCase2 = (dataObj) => {
   return {
     type: TESTCASE2,
-    data: dataObj
+    data: dataObj,
   };
 };
-export const testCase3 = id => {
+export const removeRecipeFromFavorites = (id) => {
   return {
-    type: TESTCASE3,
-    id: id
+    type: REMOVERECIPEFROMFAVORITES,
+    id: id,
   };
 };

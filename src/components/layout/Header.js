@@ -55,28 +55,19 @@ const Header = (props) => {
           color="inherit"
           noWrap
           variant="body2"
-          href="/container"
+          href="/recipeexplorer"
           className={classes.toolbarLink}
         >
-          Container
+          Recipe Explorer
         </Link>
         <Link
           color="inherit"
           noWrap
           variant="body2"
-          href="/"
+          href="/favorites"
           className={classes.toolbarLink}
         >
-          Home
-        </Link>
-        <Link
-          color="inherit"
-          noWrap
-          variant="body2"
-          href="/"
-          className={classes.toolbarLink}
-        >
-          Home
+          Favorites
         </Link>
       </Toolbar>
     </>
