@@ -3,6 +3,8 @@ import {
   TESTCASE2,
   REMOVERECIPEFROMFAVORITES,
   INDIVIDUALRECIPEDATA,
+  ADDRECIPETOLIST,
+  REMOVERECIPEFROMLIST,
 } from "../actions/actionTypes";
 
 let templateReducer = (state, action) => {
@@ -11,6 +13,8 @@ let templateReducer = (state, action) => {
     favoriteRecipes: [],
     favoriteRecipesIDs: [],
     individualRecipe: {},
+    groceryList: [],
+    groceryListIDs: [],
   };
   //Initialize state
   if (state === undefined) {
@@ -55,6 +59,27 @@ let templateReducer = (state, action) => {
       return {
         ...state,
         individualRecipe: newIndividualRecipe,
+      };
+    case ADDRECIPETOLIST:
+      //increasing value
+      console.log(action.data);
+      return {
+        ...state,
+        groceryList: state.groceryList.concat(action.data),
+        groceryListIDs: state.groceryListIDs.concat(action.data.id),
+      };
+    case REMOVERECIPEFROMLIST:
+      //deleting from array
+      let filteredArray2 = state.groceryList.filter((item) => {
+        return item.id != action.id;
+      });
+      let updateIDs2 = state.groceryListIDs.filter((id) => {
+        return id != action.id;
+      });
+      return {
+        ...state,
+        groceryList: filteredArray2,
+        groceryListIDs: updateIDs2,
       };
 
     default:

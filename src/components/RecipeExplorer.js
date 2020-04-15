@@ -10,6 +10,8 @@ import { addRecipeToFavorites } from "../actions/actionTemplate";
 import { testCase2 } from "../actions/actionTemplate";
 import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { individualRecipeData } from "../actions/actionTemplate";
+import { addRecipeToList } from "../actions/actionTemplate";
+import { removeRecipeFromList } from "../actions/actionTemplate";
 import SearchBar from "./recipesearch/SearchBar";
 import RecipeCards from "./recipesearch/RecipeCards";
 import dummyData from "../dummyData/dummyData.json";
@@ -153,7 +155,13 @@ class RecipeExplorer extends Component {
       redir: true,
     });
   };
-  //pass to component. Component will use ()=> {props.clickIndividualRecipeHandler(index)}
+
+  //Adding recipe ingredients to grocery list
+  addIngredientsToListHandler = (index) => {
+    this.props.groceryListIDs.includes(this.state.recipesWanted[index].id)
+      ? this.props.removeRecipeFromList(this.state.recipesWanted[index].id)
+      : this.props.addRecipeToList(this.state.recipesWanted[index]);
+  };
 
   render() {
     return (
@@ -171,6 +179,8 @@ class RecipeExplorer extends Component {
           favoriteRecipesIDs={this.props.favoriteRecipesIDs}
           clickIndividualRecipeHandler={this.clickIndividualRecipeHandler}
           redir={this.state.redir}
+          addIngredientsToListHandler={this.addIngredientsToListHandler}
+          groceryListIDs={this.props.groceryListIDs}
         />
       </>
     );
@@ -183,6 +193,8 @@ let mapStateToProps = (state) => {
     tempArr: state.reduxData.state2,
     favoriteRecipesIDs: state.reduxData.favoriteRecipesIDs,
     individualRecipe: state.reduxData.individualRecipe,
+    groceryList: state.reduxData.groceryList,
+    groceryListIDs: state.reduxData.groceryListIDs,
   };
 };
 
@@ -192,6 +204,8 @@ let mapDispatchToProps = (dispatch) => {
     testCase2: (dataObj) => dispatch(testCase2(dataObj)),
     removeRecipeFromFavorites: (id) => dispatch(removeRecipeFromFavorites(id)),
     individualRecipeData: (dataObj) => dispatch(individualRecipeData(dataObj)),
+    addRecipeToList: (dataObj) => dispatch(addRecipeToList(dataObj)),
+    removeRecipeFromList: (id) => dispatch(removeRecipeFromList(id)),
   };
 };
 

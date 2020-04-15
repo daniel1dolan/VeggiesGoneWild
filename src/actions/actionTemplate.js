@@ -3,6 +3,8 @@ import {
   TESTCASE2,
   REMOVERECIPEFROMFAVORITES,
   INDIVIDUALRECIPEDATA,
+  ADDRECIPETOLIST,
+  REMOVERECIPEFROMLIST,
 } from "./actionTypes";
 
 export const addRecipeToFavorites = (dataObj) => {
@@ -29,5 +31,19 @@ export const individualRecipeData = (dataObj) => {
   return {
     type: INDIVIDUALRECIPEDATA,
     data: dataObj,
+  };
+};
+
+export const addRecipeToList = (dataObj) => {
+  return {
+    type: ADDRECIPETOLIST,
+    data: dataObj,
+  };
+};
+
+export const removeRecipeFromList = (id) => {
+  return {
+    type: REMOVERECIPEFROMLIST,
+    id: id,
   };
 };
