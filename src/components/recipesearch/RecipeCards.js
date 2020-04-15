@@ -14,6 +14,8 @@ import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
+import { Redirect } from "react-router-dom";
 import { maxHeight } from "@material-ui/system";
 
 import parse from "html-react-parser";
@@ -53,12 +55,14 @@ export default function RecipeReviewCard(props) {
 
   return (
     <div className={classes.container}>
+      {props.redir === true && <Redirect to="/individualrecipe" />}
       <Grid container spacing={3}>
         {props.parentState.recipesWanted.map((recipe, index) => {
           return (
             <Grid item xs={3} key={index}>
               <Card className={classes.root}>
                 <CardHeader
+                  onClick={() => props.clickIndividualRecipeHandler(index)}
                   // avatar={
                   //   <Avatar aria-label="recipe" className={classes.avatar}>
                   //     R

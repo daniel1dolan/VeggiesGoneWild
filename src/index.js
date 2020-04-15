@@ -16,6 +16,7 @@ import App from "./App";
 import Container from "./components/Container";
 import RecipeExplorer from "./components/RecipeExplorer";
 import Favorites from "./components/Favorites";
+import IndividualRecipe from "./components/IndividualRecipe";
 
 //Root Reducer
 import rootReducer from "./reducers/rootReducer";
@@ -70,7 +71,11 @@ ReactDOM.render(
           <Switch>
             <Route exact path="/" component={App} />
             <Route exact path="/recipeexplorer" component={RecipeExplorer} />
-            <Route exact path="/recipeexplorer:id" component={Container} />
+            <Route
+              exact
+              path="/individualrecipe"
+              component={IndividualRecipe}
+            />
             <Route exact path="/favorites" component={Favorites} />
             <Route exact path="/grocerylist" component={Container} />
           </Switch>

@@ -2,6 +2,7 @@ import {
   ADDRECIPETOFAVORITES,
   TESTCASE2,
   REMOVERECIPEFROMFAVORITES,
+  INDIVIDUALRECIPEDATA,
 } from "./actionTypes";
 
 export const addRecipeToFavorites = (dataObj) => {
@@ -21,5 +22,12 @@ export const removeRecipeFromFavorites = (id) => {
   return {
     type: REMOVERECIPEFROMFAVORITES,
     id: id,
+  };
+};
+
+export const individualRecipeData = (dataObj) => {
+  return {
+    type: INDIVIDUALRECIPEDATA,
+    data: dataObj,
   };
 };

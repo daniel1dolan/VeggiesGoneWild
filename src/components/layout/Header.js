@@ -69,6 +69,15 @@ const Header = (props) => {
         >
           Favorites
         </Link>
+        <Link
+          color="inherit"
+          noWrap
+          variant="body2"
+          href="/grocerylist"
+          className={classes.toolbarLink}
+        >
+          Grocery List
+        </Link>
       </Toolbar>
     </>
   );

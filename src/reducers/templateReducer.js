@@ -2,6 +2,7 @@ import {
   ADDRECIPETOFAVORITES,
   TESTCASE2,
   REMOVERECIPEFROMFAVORITES,
+  INDIVIDUALRECIPEDATA,
 } from "../actions/actionTypes";
 
 let templateReducer = (state, action) => {
@@ -9,6 +10,7 @@ let templateReducer = (state, action) => {
     state1: 0,
     favoriteRecipes: [],
     favoriteRecipesIDs: [],
+    individualRecipe: {},
   };
   //Initialize state
   if (state === undefined) {
@@ -44,6 +46,15 @@ let templateReducer = (state, action) => {
         ...state,
         favoriteRecipes: filteredArray,
         favoriteRecipesIDs: updateIDs,
+      };
+    case INDIVIDUALRECIPEDATA:
+      //change individual recipe data
+      console.log(action.data);
+      let newIndividualRecipe = state.individualRecipe;
+      newIndividualRecipe = action.data;
+      return {
+        ...state,
+        individualRecipe: newIndividualRecipe,
       };
 
     default:

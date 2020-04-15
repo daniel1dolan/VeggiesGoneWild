@@ -4,10 +4,12 @@ import {
   ADDRECIPETOFAVORITES,
   TESTCASE2,
   REMOVERECIPEFROMFAVORITES,
+  INDIVIDUALRECIPEDATA,
 } from "../actions/actionTypes";
 import { addRecipeToFavorites } from "../actions/actionTemplate";
 import { testCase2 } from "../actions/actionTemplate";
 import { removeRecipeFromFavorites } from "../actions/actionTemplate";
+import { individualRecipeData } from "../actions/actionTemplate";
 import SearchBar from "./recipesearch/SearchBar";
 import RecipeCards from "./recipesearch/RecipeCards";
 import dummyData from "../dummyData/dummyData.json";
@@ -20,6 +22,7 @@ class RecipeExplorer extends Component {
       cuisineField: "",
       typeField: "",
       recipesWanted: [],
+      redir: false,
     };
   }
 
@@ -142,6 +145,16 @@ class RecipeExplorer extends Component {
       : this.props.addRecipeToFavorites(this.state.recipesWanted[index]);
   };
 
+  //Load individual recipe handler
+  clickIndividualRecipeHandler = (index) => {
+    console.log(index);
+    this.props.individualRecipeData(this.state.recipesWanted[index]);
+    this.setState({
+      redir: true,
+    });
+  };
+  //pass to component. Component will use ()=> {props.clickIndividualRecipeHandler(index)}
+
   render() {
     return (
       <>
@@ -156,6 +169,8 @@ class RecipeExplorer extends Component {
           parentState={this.state}
           addFave={this.addFavoriteRecipeHandler}
           favoriteRecipesIDs={this.props.favoriteRecipesIDs}
+          clickIndividualRecipeHandler={this.clickIndividualRecipeHandler}
+          redir={this.state.redir}
         />
       </>
     );
@@ -167,6 +182,7 @@ let mapStateToProps = (state) => {
     favoriteRecipes: state.reduxData.favoriteRecipes,
     tempArr: state.reduxData.state2,
     favoriteRecipesIDs: state.reduxData.favoriteRecipesIDs,
+    individualRecipe: state.reduxData.individualRecipe,
   };
 };
 
@@ -175,6 +191,7 @@ let mapDispatchToProps = (dispatch) => {
     addRecipeToFavorites: (dataObj) => dispatch(addRecipeToFavorites(dataObj)),
     testCase2: (dataObj) => dispatch(testCase2(dataObj)),
     removeRecipeFromFavorites: (id) => dispatch(removeRecipeFromFavorites(id)),
+    individualRecipeData: (dataObj) => dispatch(individualRecipeData(dataObj)),
   };
 };
 
