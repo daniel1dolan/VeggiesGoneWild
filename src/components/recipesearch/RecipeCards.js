@@ -17,6 +17,7 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import { Redirect } from "react-router-dom";
 import { maxHeight } from "@material-ui/system";
+import "./Style.css";
 
 import parse from "html-react-parser";
 
@@ -59,20 +60,16 @@ export default function RecipeReviewCard(props) {
       <Grid container spacing={3}>
         {props.parentState.recipesWanted.map((recipe, index) => {
           return (
-            <Grid item xs={3} key={index}>
+            <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
               <Card className={classes.root}>
                 <CardHeader
+                  className="header"
                   onClick={() => props.clickIndividualRecipeHandler(index)}
                   // avatar={
                   //   <Avatar aria-label="recipe" className={classes.avatar}>
                   //     R
                   //   </Avatar>
                   // }
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
                   title={recipe.title}
                   subheader={"Time: " + recipe.readyInMinutes}
                 />
@@ -81,7 +78,7 @@ export default function RecipeReviewCard(props) {
                   image={recipe.image}
                   title={recipe.title}
                 />
-                <CardContent>
+                <CardContent className="truncate-overflow">
                   <Typography
                     className={classes.description}
                     variant="body2"
@@ -121,7 +118,6 @@ export default function RecipeReviewCard(props) {
                       }
                     />
                   </IconButton>
-                  <ExpandMoreIcon />
                 </CardActions>
               </Card>
             </Grid>

@@ -5,6 +5,7 @@ import {
   INDIVIDUALRECIPEDATA,
   ADDRECIPETOLIST,
   REMOVERECIPEFROMLIST,
+  HOMEPAGEBROWSE,
 } from "../actions/actionTypes";
 
 let templateReducer = (state, action) => {
@@ -15,6 +16,7 @@ let templateReducer = (state, action) => {
     individualRecipe: {},
     groceryList: [],
     groceryListIDs: [],
+    query: "",
   };
   //Initialize state
   if (state === undefined) {
@@ -80,6 +82,12 @@ let templateReducer = (state, action) => {
         ...state,
         groceryList: filteredArray2,
         groceryListIDs: updateIDs2,
+      };
+    case HOMEPAGEBROWSE:
+      //adding to array
+      return {
+        ...state,
+        query: action.query,
       };
 
     default:

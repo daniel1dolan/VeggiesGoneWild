@@ -12,6 +12,7 @@ import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { individualRecipeData } from "../actions/actionTemplate";
 import { addRecipeToList } from "../actions/actionTemplate";
 import { removeRecipeFromList } from "../actions/actionTemplate";
+import { homePageBrowse } from "../actions/actionTemplate";
 import SearchBar from "./recipesearch/SearchBar";
 import RecipeCards from "./recipesearch/RecipeCards";
 import dummyData from "../dummyData/dummyData.json";
@@ -30,44 +31,77 @@ class RecipeExplorer extends Component {
 
   //Inital recipe load
   componentWillMount = (params) => {
-    // let url =
-    //   "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
-    // fetch(url)
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     let filteredData = data.results.map((recipe) => {
-    //       return {
-    //         title: recipe.title,
-    //         readyInMinutes: recipe.readyInMinutes,
-    //         image: recipe.image,
-    //         summary: recipe.summary,
-    //         nutrition: recipe.nutrition,
-    //         instructions: recipe.analyzedInstructions,
-    //         ingredients: recipe.missedIngredients,
-    //       };
-    //     });
-    //     this.setState({
-    //       recipesWanted: filteredData,
-    //     });
-    //   });
+    if (this.props.query.length > 0) {
+      let url =
+        "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
+      url += `&query=${this.props.query}`;
+      console.log(url);
+      fetch(url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let filteredData = data.results.map((recipe) => {
+            return {
+              title: recipe.title,
+              readyInMinutes: recipe.readyInMinutes,
+              image: recipe.image,
+              summary: recipe.summary,
+              nutrition: recipe.nutrition,
+              instructions: recipe.analyzedInstructions,
+              ingredients: recipe.missedIngredients,
+            };
+          });
+          this.setState(
+            {
+              recipesWanted: filteredData,
+              queryFromHome: true,
+            },
+            () => {
+              this.props.homePageBrowse("");
+            }
+          );
+        });
+    } else {
+      let url =
+        "https://api.spoonacular.com/recipes/complexSearch?apiKey=8c68b07724d1450abd164de9a4455132&diet=vegan&number=30&addRecipeNutrition=true&fillIngredients=true&sort=popularity";
+      fetch(url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let filteredData = data.results.map((recipe) => {
+            return {
+              title: recipe.title,
+              readyInMinutes: recipe.readyInMinutes,
+              image: recipe.image,
+              summary: recipe.summary,
+              nutrition: recipe.nutrition,
+              instructions: recipe.analyzedInstructions,
+              ingredients: recipe.missedIngredients,
+            };
+          });
+          this.setState({
+            recipesWanted: filteredData,
+          });
+        });
+    }
     //When spoonacular request run out: use dummy data.
-    let filteredData = dummyData.results.map((recipe) => {
-      return {
-        title: recipe.title,
-        readyInMinutes: recipe.readyInMinutes,
-        image: recipe.image,
-        summary: recipe.summary,
-        nutrition: recipe.nutrition,
-        instructions: recipe.analyzedInstructions,
-        ingredients: recipe.missedIngredients,
-        id: recipe.id,
-      };
-    });
-    this.setState({
-      recipesWanted: filteredData,
-    });
+    // let filteredData = dummyData.results.map((recipe) => {
+    //   return {
+    //     title: recipe.title,
+    //     readyInMinutes: recipe.readyInMinutes,
+    //     image: recipe.image,
+    //     summary: recipe.summary,
+    //     nutrition: recipe.nutrition,
+    //     instructions: recipe.analyzedInstructions,
+    //     ingredients: recipe.missedIngredients,
+    //     id: recipe.id,
+    //   };
+    // });
+    // this.setState({
+    //   recipesWanted: filteredData,
+    // });
   };
 
   //Handling of input field data storage
@@ -173,6 +207,9 @@ class RecipeExplorer extends Component {
           parentState={this.state}
           submitHandler={this.onSubmitHandler}
         />
+        <br />
+        <hr />
+        <br />
         <RecipeCards
           parentState={this.state}
           addFave={this.addFavoriteRecipeHandler}
@@ -195,6 +232,7 @@ let mapStateToProps = (state) => {
     individualRecipe: state.reduxData.individualRecipe,
     groceryList: state.reduxData.groceryList,
     groceryListIDs: state.reduxData.groceryListIDs,
+    query: state.reduxData.query,
   };
 };
 
@@ -206,6 +244,7 @@ let mapDispatchToProps = (dispatch) => {
     individualRecipeData: (dataObj) => dispatch(individualRecipeData(dataObj)),
     addRecipeToList: (dataObj) => dispatch(addRecipeToList(dataObj)),
     removeRecipeFromList: (id) => dispatch(removeRecipeFromList(id)),
+    homePageBrowse: (query) => dispatch(homePageBrowse(query)),
   };
 };
 

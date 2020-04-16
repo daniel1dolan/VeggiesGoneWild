@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     bottom: 0,
     right: 0,
-    paddingBottom: "40px",
+    paddingBottom: "10px",
   },
 }));
 
@@ -26,7 +26,8 @@ const Footer = () => {
   const classes = useStyles();
   return (
     <>
-      <div className={classes.footer}>
+      <hr />
+      <div className="sticky-bottom">
         <Grid container justify="center" alignItems="center">
           <Grid item xs={1}>
             <IconButton>

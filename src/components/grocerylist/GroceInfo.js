@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    maxWidth: 752,
+    maxWidth: 900,
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -21,14 +21,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
 }));
-
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
 
 export default function Info(props) {
   const classes = useStyles();
@@ -45,10 +37,10 @@ export default function Info(props) {
           Add an item to your list using the list icon below each recipe.
         </Typography>
       )}
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {props.groceryList.map((aisle, index) => {
           return (
-            <Grid item xs={12} md={6}>
+            <Grid item>
               <Typography variant="h6" className={classes.title}>
                 {aisle.aisle}
               </Typography>
@@ -57,6 +49,9 @@ export default function Info(props) {
                   {aisle.aisleIngredients.map((ingredient) => {
                     return (
                       <ListItem>
+                        {/* <ListItemIcon>
+
+                        </ListItemIcon> */}
                         <ListItemText
                           primary={ingredient}
                           secondary={secondary ? "Secondary text" : null}

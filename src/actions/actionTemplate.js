@@ -5,6 +5,7 @@ import {
   INDIVIDUALRECIPEDATA,
   ADDRECIPETOLIST,
   REMOVERECIPEFROMLIST,
+  HOMEPAGEBROWSE,
 } from "./actionTypes";
 
 export const addRecipeToFavorites = (dataObj) => {
@@ -45,5 +46,11 @@ export const removeRecipeFromList = (id) => {
   return {
     type: REMOVERECIPEFROMLIST,
     id: id,
+  };
+};
+export const homePageBrowse = (query) => {
+  return {
+    type: HOMEPAGEBROWSE,
+    query: query,
   };
 };

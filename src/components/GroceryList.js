@@ -10,6 +10,7 @@ import { testCase2 } from "../actions/actionTemplate";
 import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { addRecipeToList } from "../actions/actionTemplate";
 import { removeRecipeFromList } from "../actions/actionTemplate";
+import { homePageBrowse } from "../actions/actionTemplate";
 import GroceInfo from "./grocerylist/GroceInfo";
 
 class GroceryList extends Component {
@@ -45,6 +46,7 @@ class GroceryList extends Component {
                 aisle: ingredient.aisle,
                 aisleIngredients: [ingredient.name],
               });
+              return;
             }
           }
         }
@@ -75,6 +77,7 @@ let mapStateToProps = (state) => {
     favoriteRecipesIDs: state.reduxData.favoriteRecipesIDs,
     groceryList: state.reduxData.groceryList,
     groceryListIDs: state.reduxData.groceryListIDs,
+    query: state.reduxData.query,
   };
 };
 
@@ -85,6 +88,7 @@ let mapDispatchToProps = (dispatch) => {
     removeRecipeFromFavorites: (id) => dispatch(removeRecipeFromFavorites(id)),
     addRecipeToList: (dataObj) => dispatch(addRecipeToList(dataObj)),
     removeRecipeFromList: (id) => dispatch(removeRecipeFromList(id)),
+    homePageBrowse: (query) => dispatch(homePageBrowse(query)),
   };
 };
 

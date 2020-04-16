@@ -4,13 +4,27 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import parse from "html-react-parser";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    margin: 20,
+    margin: 30,
     width: "100%",
-    maxWidth: 500,
+    maxWidth: "90vw",
   },
-});
+  ingredientBox: {
+    marginTop: 10,
+    marginBottom: 10,
+    display: "inline-block",
+  },
+  bodyText: {
+    marginRight: 30,
+  },
+  nutritionBox: {
+    marginTop: 10,
+    marginBottom: 10,
+    border: "3px double #C5E29E",
+    display: "inline-block",
+  },
+}));
 
 export default function Info(props) {
   const classes = useStyles();
@@ -20,24 +34,27 @@ export default function Info(props) {
       <Typography variant="h2" gutterBottom>
         {props.recipeInfo.title}
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography className={classes.bodyText} variant="body1" gutterBottom>
         {parse(props.recipeInfo.summary)}
       </Typography>
-      <Typography variant="button" display="block" gutterBottom>
-        Ingredients:
-      </Typography>
-      {props.recipeInfo.ingredients.map((item, index) => {
-        return (
-          <Typography
-            key={index}
-            variant="caption"
-            display="block"
-            gutterBottom
-          >
-            {item.originalString}
-          </Typography>
-        );
-      })}
+      <div className={classes.ingredientBox}>
+        <Typography variant="button" display="block" gutterBottom>
+          Ingredients:
+        </Typography>
+        {props.recipeInfo.ingredients.map((item, index) => {
+          return (
+            <Typography
+              key={index}
+              variant="caption"
+              display="block"
+              gutterBottom
+              style={{ margin: "10px" }}
+            >
+              {item.originalString}
+            </Typography>
+          );
+        })}
+      </div>
       <Typography variant="button" display="block" gutterBottom>
         Instructions:
       </Typography>
@@ -53,24 +70,32 @@ export default function Info(props) {
           </Typography>
         );
       })}
-      <Typography variant="overline" display="block" gutterBottom>
-        Nutrition:
-      </Typography>
-      {props.recipeInfo.nutrition.nutrients.map((item, index) => {
-        if (index < 9) {
-          return (
-            <Typography
-              key={index}
-              variant="caption"
-              display="block"
-              gutterBottom
-            >
-              {item.title}: {item.amount}
-              {item.unit}
-            </Typography>
-          );
-        }
-      })}
+      <div className={classes.nutritionBox}>
+        <Typography
+          variant="overline"
+          display="block"
+          gutterBottom
+          style={{ margin: "5px" }}
+        >
+          Nutrition:
+        </Typography>
+        {props.recipeInfo.nutrition.nutrients.map((item, index) => {
+          if (index < 9) {
+            return (
+              <Typography
+                key={index}
+                variant="caption"
+                display="block"
+                gutterBottom
+                style={{ margin: "10px" }}
+              >
+                {item.title}: {item.amount}
+                {item.unit}
+              </Typography>
+            );
+          }
+        })}
+      </div>
     </div>
   );
 }

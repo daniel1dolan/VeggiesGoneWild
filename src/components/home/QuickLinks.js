@@ -111,6 +111,9 @@ export default function ButtonBases(props) {
           style={{
             width: image.width,
           }}
+          onClick={() => {
+            props.homePageBrowse(image.title);
+          }}
         >
           <span
             className={classes.imageSrc}
