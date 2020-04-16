@@ -10,6 +10,7 @@ import { testCase2 } from "../actions/actionTemplate";
 import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { addRecipeToList } from "../actions/actionTemplate";
 import { removeRecipeFromList } from "../actions/actionTemplate";
+import GroceInfo from "./grocerylist/GroceInfo";
 
 class GroceryList extends Component {
   constructor(props) {
@@ -59,7 +60,11 @@ class GroceryList extends Component {
     );
   };
   render() {
-    return <>Grocery List</>;
+    return (
+      <>
+        <GroceInfo groceryList={this.state.sortedIngredients} />
+      </>
+    );
   }
 }
 

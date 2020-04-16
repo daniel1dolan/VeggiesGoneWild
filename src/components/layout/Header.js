@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarTitle: {
     width: "100px",
+    flexShrink: 0,
   },
   toolbarSecondary: {
     justifyContent: "space-between",
@@ -28,11 +29,7 @@ const Header = (props) => {
   const classes = useStyles();
   return (
     <>
-      <Toolbar
-        component="nav"
-        variant="dense"
-        className={classes.toolbarSecondary}
-      >
+      <Toolbar component="nav" variant="dense" className={classes.toolbar}>
         <Typography
           component="img"
           variant="h5"
@@ -45,7 +42,7 @@ const Header = (props) => {
         <Link
           color="inherit"
           noWrap
-          variant="body2"
+          variant="body1"
           href="/"
           className={classes.toolbarLink}
         >
@@ -54,7 +51,7 @@ const Header = (props) => {
         <Link
           color="inherit"
           noWrap
-          variant="body2"
+          variant="body1"
           href="/recipeexplorer"
           className={classes.toolbarLink}
         >
@@ -63,7 +60,7 @@ const Header = (props) => {
         <Link
           color="inherit"
           noWrap
-          variant="body2"
+          variant="body1"
           href="/favorites"
           className={classes.toolbarLink}
         >
@@ -72,7 +69,7 @@ const Header = (props) => {
         <Link
           color="inherit"
           noWrap
-          variant="body2"
+          variant="body1"
           href="/grocerylist"
           className={classes.toolbarLink}
         >
