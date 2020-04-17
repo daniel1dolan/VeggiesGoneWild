@@ -8,6 +8,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import ClearIcon from "@material-ui/icons/Clear";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     margin: theme.spacing(4, 0, 2),
+  },
+  marginLeft: {
+    paddingLeft: 0,
   },
 }));
 
@@ -37,6 +42,22 @@ export default function Info(props) {
           Add an item to your list using the list icon below each recipe.
         </Typography>
       )}
+      <div>
+        {props.titles.map((recipe, index) => {
+          return (
+            <span style={{ display: "inline" }}>
+              {recipe.title}
+              <IconButton
+                onClick={() => {
+                  props.removeRecipeFromList(recipe.id);
+                }}
+              >
+                <ClearIcon />
+              </IconButton>
+            </span>
+          );
+        })}
+      </div>
       <Grid container spacing={3}>
         {props.groceryList.map((aisle, index) => {
           return (
@@ -46,12 +67,15 @@ export default function Info(props) {
               </Typography>
               <div className={classes.demo}>
                 <List dense={dense}>
-                  {aisle.aisleIngredients.map((ingredient) => {
+                  {aisle.aisleIngredients.map((ingredient, index) => {
                     return (
-                      <ListItem>
+                      <ListItem key={index}>
                         {/* <ListItemIcon>
 
                         </ListItemIcon> */}
+                        <Checkbox
+                          inputProps={{ "aria-label": "uncontrolled-checkbox" }}
+                        />
                         <ListItemText
                           primary={ingredient}
                           secondary={secondary ? "Secondary text" : null}

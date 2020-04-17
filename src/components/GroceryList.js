@@ -61,10 +61,67 @@ class GroceryList extends Component {
       }
     );
   };
+  removeRecipeFromListHandler = (id) => {
+    this.props.removeRecipeFromList(id);
+    this.setState(
+      {
+        sortedIngredients: this.state.sortedIngredients,
+      },
+      () => {
+        let groceryList = this.props.groceryList;
+        let sortIngredients = [];
+        Loop1: groceryList.forEach((item) => {
+          console.log("Item start");
+          item.ingredients.forEach((ingredient) => {
+            if (sortIngredients.length < 1) {
+              console.log("first if");
+              sortIngredients.push({
+                aisle: ingredient.aisle,
+                aisleIngredients: [ingredient.name],
+              });
+            } else {
+              Loop2: for (
+                let index = 0;
+                index <= sortIngredients.length;
+                index++
+              ) {
+                console.log(sortIngredients[index].aisle);
+                console.log(ingredient.aisle, ingredient.name);
+                if (sortIngredients[index].aisle === ingredient.aisle) {
+                  console.log("existing aisle found");
+                  sortIngredients[index].aisleIngredients.push(ingredient.name);
+                  return;
+                } else if (index + 1 === sortIngredients.length) {
+                  console.log("new aisle added");
+                  sortIngredients.push({
+                    aisle: ingredient.aisle,
+                    aisleIngredients: [ingredient.name],
+                  });
+                  return;
+                }
+              }
+            }
+          });
+        });
+        this.setState(
+          {
+            sortedIngredients: sortIngredients,
+          },
+          () => {
+            console.log(this.state.sortedIngredients);
+          }
+        );
+      }
+    );
+  };
   render() {
     return (
       <>
-        <GroceInfo groceryList={this.state.sortedIngredients} />
+        <GroceInfo
+          groceryList={this.state.sortedIngredients}
+          titles={this.props.groceryList}
+          removeRecipeFromList={this.removeRecipeFromListHandler}
+        />
       </>
     );
   }

@@ -50,6 +50,7 @@ class RecipeExplorer extends Component {
               nutrition: recipe.nutrition,
               instructions: recipe.analyzedInstructions,
               ingredients: recipe.missedIngredients,
+              id: recipe.id,
             };
           });
           this.setState(
@@ -79,6 +80,7 @@ class RecipeExplorer extends Component {
               nutrition: recipe.nutrition,
               instructions: recipe.analyzedInstructions,
               ingredients: recipe.missedIngredients,
+              id: recipe.id,
             };
           });
           this.setState({

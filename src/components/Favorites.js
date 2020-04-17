@@ -11,6 +11,7 @@ import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { addRecipeToList } from "../actions/actionTemplate";
 import { removeRecipeFromList } from "../actions/actionTemplate";
 import FavoriteCards from "./favorites/FavoriteCards";
+import Typography from "@material-ui/core/Typography";
 
 class Favorites extends Component {
   constructor(props) {
@@ -29,6 +30,12 @@ class Favorites extends Component {
   render() {
     return (
       <>
+        {this.props.favoriteRecipes.length < 1 && (
+          <Typography variant="body1" gutterBottom>
+            Add an item to your favorites using the heart icon below each
+            recipe.
+          </Typography>
+        )}
         <FavoriteCards
           favoriteRecipes={this.props.favoriteRecipes}
           favoriteRecipesIDs={this.props.favoriteRecipesIDs}
