@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6f2e0b12.chunk.css",
+    "main.js": "/static/js/main.719ed4c6.chunk.js",
+    "main.js.map": "/static/js/main.719ed4c6.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.edc284d9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.edc284d9.js.map",
+    "static/js/2.931a4265.chunk.js": "/static/js/2.931a4265.chunk.js",
+    "static/js/2.931a4265.chunk.js.map": "/static/js/2.931a4265.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.fac3cb63bd69b13f48f30654489f5329.js": "/precache-manifest.fac3cb63bd69b13f48f30654489f5329.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.6f2e0b12.chunk.css.map": "/static/css/main.6f2e0b12.chunk.css.map",
+    "static/js/2.931a4265.chunk.js.LICENSE.txt": "/static/js/2.931a4265.chunk.js.LICENSE.txt",
+    "static/media/breakfast.jpg": "/static/media/breakfast.28ed7344.jpg",
+    "static/media/dessert.jpg": "/static/media/dessert.494fe7e1.jpg",
+    "static/media/dinner.jpg": "/static/media/dinner.c57b6e75.jpg",
+    "static/media/vgw-logo.png": "/static/media/vgw-logo.eafa8cbe.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.edc284d9.js",
+    "static/js/2.931a4265.chunk.js",
+    "static/css/main.6f2e0b12.chunk.css",
+    "static/js/main.719ed4c6.chunk.js"
+  ]
+}

@@ -30,21 +30,23 @@ class GroceryList extends Component {
           console.log("first if");
           sortIngredients.push({
             aisle: ingredient.aisle,
-            aisleIngredients: [ingredient.name],
+            aisleIngredients: [ingredient.originalString],
           });
         } else {
           Loop2: for (let index = 0; index <= sortIngredients.length; index++) {
             console.log(sortIngredients[index].aisle);
-            console.log(ingredient.aisle, ingredient.name);
+            console.log(ingredient.aisle, ingredient.originalString);
             if (sortIngredients[index].aisle === ingredient.aisle) {
               console.log("existing aisle found");
-              sortIngredients[index].aisleIngredients.push(ingredient.name);
+              sortIngredients[index].aisleIngredients.push(
+                ingredient.originalString
+              );
               return;
             } else if (index + 1 === sortIngredients.length) {
               console.log("new aisle added");
               sortIngredients.push({
                 aisle: ingredient.aisle,
-                aisleIngredients: [ingredient.name],
+                aisleIngredients: [ingredient.originalString],
               });
               return;
             }
@@ -77,7 +79,7 @@ class GroceryList extends Component {
               console.log("first if");
               sortIngredients.push({
                 aisle: ingredient.aisle,
-                aisleIngredients: [ingredient.name],
+                aisleIngredients: [ingredient.originalString],
               });
             } else {
               Loop2: for (
@@ -89,13 +91,15 @@ class GroceryList extends Component {
                 console.log(ingredient.aisle, ingredient.name);
                 if (sortIngredients[index].aisle === ingredient.aisle) {
                   console.log("existing aisle found");
-                  sortIngredients[index].aisleIngredients.push(ingredient.name);
+                  sortIngredients[index].aisleIngredients.push(
+                    ingredient.originalString
+                  );
                   return;
                 } else if (index + 1 === sortIngredients.length) {
                   console.log("new aisle added");
                   sortIngredients.push({
                     aisle: ingredient.aisle,
-                    aisleIngredients: [ingredient.name],
+                    aisleIngredients: [ingredient.originalString],
                   });
                   return;
                 }

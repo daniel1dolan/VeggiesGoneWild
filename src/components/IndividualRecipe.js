@@ -11,8 +11,24 @@ import { removeRecipeFromFavorites } from "../actions/actionTemplate";
 import { addRecipeToList } from "../actions/actionTemplate";
 import { removeRecipeFromList } from "../actions/actionTemplate";
 import Info from "./individualrecipe/Info";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ListIcon from "@material-ui/icons/List";
 
 class IndividualRecipe extends Component {
+  constructor(props) {
+    super(props);
+  }
+  addIngredientsToListHandler = () => {
+    this.props.groceryListIDs.includes(this.props.individualRecipe.id)
+      ? this.props.removeRecipeFromList(this.props.individualRecipe.id)
+      : this.props.addRecipeToList(this.props.individualRecipe);
+  };
+  addFavoriteRecipeHandler = () => {
+    this.props.favoriteRecipesIDs.includes(this.props.individualRecipe.id)
+      ? this.props.removeRecipeFromFavorites(this.props.individualRecipe.id)
+      : this.props.addRecipeToFavorites(this.props.individualRecipe);
+  };
   render() {
     return (
       <>
@@ -27,7 +43,47 @@ class IndividualRecipe extends Component {
             minHeight: 300,
           }}
         ></div>
-        <Info recipeInfo={this.props.individualRecipe} />
+        <div>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => {
+              this.addFavoriteRecipeHandler();
+            }}
+          >
+            <FavoriteIcon
+              style={
+                this.props.favoriteRecipesIDs.includes(
+                  this.props.individualRecipe.id
+                )
+                  ? { color: "red" }
+                  : { color: "grey" }
+              }
+            />
+          </IconButton>
+          <IconButton
+            aria-label="add-to-grocery-list"
+            onClick={() => {
+              this.addIngredientsToListHandler();
+            }}
+          >
+            <ListIcon
+              color={
+                this.props.groceryListIDs.includes(
+                  this.props.individualRecipe.id
+                )
+                  ? "primary"
+                  : "disabled"
+              }
+            />
+          </IconButton>
+        </div>
+        <Info
+          recipeInfo={this.props.individualRecipe}
+          favoriteRecipesIDs={this.props.favoriteRecipesIDs}
+          addFave={this.addFavoriteRecipeHandler}
+          addIngredientsToListHandler={this.addIngredientsToListHandler}
+          groceryListIDs={this.props.groceryListIDs}
+        />
       </>
     );
   }
