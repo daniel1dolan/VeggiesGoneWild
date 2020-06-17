@@ -1,3 +1,7 @@
+<h1>Veggies Gone Wild</h1>
+
+This project was built using React. It focused on a simple and easy to navigate User Experience to browse Vegan recipes. It uses an API to get all of the recipes and recipe information.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
